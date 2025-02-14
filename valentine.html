@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Surprise</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ff99cc;
+      color: white;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      overflow-x: hidden; 
+    }
+
+    header {
+      font-size: 3em;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar a {
+      text-decoration: none;
+    }
+
+    .navbar button {
+      padding: 15px 30px;
+      background-color: #fff;
+      color: #ff3366;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
+
+    .navbar button:hover {
+      background-color: #ff6699;
+      color: #fff;
+    }
+
+    .content-section {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      margin-top: 50px;
+    }
+
+    :target {
+      display: block;
+      opacity: 1;
+    }
+
+    .cute-box {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .text-box {
+      flex: 1;
+      padding: 20px;
+      font-size: 1.3em;
+      color: #fff;
+      max-width: 55%;
+    }
+
+    .images-container {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .image-wrapper {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .image-wrapper:hover {
+      transform: scale(1.05);
+    }
+
+    .centered-image {
+      width: 180px;
+      height: 250px; 
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .centered-image-portrait {
+      width: 360px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+
+    .valentine-content {
+      margin-top: 50px;
+    }
+
+    .heart {
+      font-size: 3em;
+      animation: heartAnimation 2s infinite;
+    }
+
+    @keyframes heartAnimation {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 1.2em;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .love-letter {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 1.3em;
+      color: white;
+      text-align: left;
+      max-width: 600px;
+      margin: auto;
+      position: relative;
+    }
+
+    .love-letter p {
+      text-align: left;
+      margin: 0;
+    }
+
+    .floating-hearts::before, .floating-hearts::after {
+      content: "❤️";
+      font-size: 2em;
+      position: absolute;
+      animation: floatHearts 4s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    .floating-hearts::before {
+      left: 10%;
+      animation-delay: 1s;
+    }
+
+    .floating-hearts::after {
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-50px) scale(1.2); opacity: 0.6; }
+      100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    }
+
+    .video-wrapper {
+      max-width: 360px;  /* Combined width of the two images */
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .video {
+      width: 100%;  /* Ensures video takes up the full space */
+      border-radius: 12px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        font-size: 2em;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navbar button {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .cute-box {
+        flex-direction: column;
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .text-box {
+        font-size: 1.1em;
+        padding: 15px;
+        max-width: 100%;
+      }
+
+      .images-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .centered-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .video-wrapper {
+        max-width: 100%;
+      }
+
+      .love-letter {
+        font-size: 1.1em;
+      }
+
+      footer {
+        font-size: 1em;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.5em;
+      }
+
+      .navbar button {
+        font-size: 1em;
+        padding: 10px;
+      }
+
+      .cute-box {
+        padding: 10px;
+      }
+
+      .text-box {
+        font-size: 1em;
+      }
+
+      .centered-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .video-wrapper {
+        max-width: 100%;
+      }
+
+      .love-letter {
+        font-size: 1em;
+        padding: 15px;
+      }
+
+      footer {
+        font-size: 0.9em;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>Happy Valentine’s Day!</header>
+
+  <div class="navbar">
+    <a href="#images-memories"><button>Images and Memories</button></a>
+    <a href="#note"><button>A Little Note</button></a>
+    <a href="#messageForm"><button>Write Me Something</button></a>
+  </div>
+
+  <div id="images-memories" class="content-section">
+    <h2>Our Special Moments ✨</h2>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          Meeting you was like stepping into a dream—one so vivid, so breathtaking, that I never wanted to wake up. From the very first moment, my world shifted, and nothing else seemed to matter. You were more beautiful than anything I had ever seen, more stunning than the stars that light up the night sky, more mesmerizing than any masterpiece ever created. And I know, without a doubt, that no sight in this lifetime or the next could ever compare to the way you looked that day—the way you still look to me, every single time I see you. You are, and will always be, the most beautiful thing my eyes will ever behold.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime.jpg" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime1.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          With every passing day, we find ourselves drawn closer, spending more and more time together, and yet, it never feels like enough. Every moment with you feels effortless, as if time itself slows down just to let me cherish you a little longer. Whether it's deep conversations that stretch into the night, stolen glances that say more than words ever could, or simply sitting in comfortable silence, every second with you feels like home. The more time we share, the more I realize that no amount of it will ever be enough—I will always want more of you, more of us, more of this love that grows stronger with every heartbeat.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime2.jpg" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime3.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          Since you came into my life, everything has become more beautiful, more exciting, more alive. The smallest things—listening to a song, walking in the rain, watching the stars—feel different now, as if the world itself has taken on a softer, warmer glow just because you're in it. Every moment is sweeter, every laugh is louder, and even the simplest of days feel like an adventure when you’re by my side. You make the ordinary extraordinary, and I can’t imagine a life without the magic you bring into it.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime4.jpg" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime5.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+       My love, the more we find ourselves lost in conversation, the closer I feel to you. It’s as if each word you speak is a thread weaving our hearts together, no matter the distance. Your voice—soft, melodic—whispers to me like a song I never want to end. Every time your lips move, it’s like an eargasm, a sweet symphony that stirs something deep within me. With every call, it feels as though the space between us melts away, and all that’s left is the magic of your voice, drawing me nearer to you, as if you’re right here beside me.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime6.jpg" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime7.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          Sharing our favorite movies and music has been such a beautiful journey of discovery for us. Every time we talk about a film we love or a song that moves us, I feel like I’m peeling back another layer of who you are. It’s like we’re exploring each other’s worlds, learning more about our tastes, our dreams, and the little things that make us tick. The more we share, the more I realize how much we have in common, yet how beautifully unique we are in our own ways.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime8.jpg" alt="Image 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="centered-image" src="img/Facetime9.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          You're the silliest person I know, and honestly, I wouldn't have it any other way. Your little quirks and playful moments bring so much joy into my life, and I can't help but smile every time you do something goofy. I love how you make everything feel lighthearted and fun, even when things are serious. I love being your little baby, just resting beside you, feeling completely at ease.
+        </p>
+      </div>
+      <div class="video-wrapper">
+        <video class="video" width="360" controls>
+          <source  src="img/Us.mp4">
+        </video>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          Every time we hop into a Valorant game together, it’s like the world fades away, and it’s just you and me in our little bubble of laughter and chaos. I love how we get so lost in the game, not caring about the wins or losses, just enjoying every moment and each other’s company. Whether we’re pulling off an epic play or laughing at our mistakes, it’s always so much fun because we’re together. The best part? How carefree it all feels. With you, there’s no pressure, just pure joy, and that’s what makes our time together so special. It’s not about the game—it’s about being with you, having fun, and feeling like we can just be ourselves.        </p>
+      </div>
+      <div class="video-wrapper">
+        <video class="video" width="360" controls>
+          <source  src="img/Val_Video.mp4">
+        </video>
+      </div>
+    </div>
+    <div class="cute-box">
+      <div class="text-box">
+        <p>
+          Even when our schedules are packed with studies and responsibilities, we always make sure to carve out time for each other. Whether it's in between study sessions or late at night, we find ways to connect, even if it means FaceTiming for a few moments. It’s those small but meaningful conversations that remind us of the bond we share, making everything else feel a little lighter. No matter how busy we get, our time together always holds a special place in our hearts.
+        </p>
+      </div>
+      <div class="images-container">
+        <div class="image-wrapper">
+          <img class="centered-image-portrait" src="img/Facetime10.jpg" alt="Image 1">
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+
+  <div id="note" class="content-section">
+    <h2>Love letter 💞</h2>
+    <div class="love-letter">
+      <p>
+        My gorgeous Magda,
+      </br>
+      </br>
+        From the very moment you came into my life, everything changed. The sky became brighter, the stars seemed to shine just for us, and every heartbeat of mine whispered your name. I often find myself wondering how I got so lucky—how the universe conspired to bring me someone as wonderful, as kind, as breathtakingly beautiful as you.
+      </br>
+      </br>
+
+        There are moments, small and simple, that remind me of how deeply I love you. The way you laugh when something truly amuses you, that sparkle in your eyes when you talk about something you’re passionate about, the way your voice soothes my worries without even trying. Every little detail about you—every quirk, every habit, every expression—is something I have memorized and cherished in the depths of my heart.
+      </br>  
+      </br>
+
+        Loving you is like breathing. It’s effortless, it’s natural, and it’s something I could never stop even if I tried. You have become my safe place, my peace, my greatest adventure. With you, love is not just a feeling—it is a journey, a story written in the stars, an endless melody playing softly in my soul.
+      </br>  
+      </br>
+
+        I want you to know that I see you—not just the you that you show to the world, but the real you. I see your strength, your kindness, your hopes and dreams. I see the way you love with your whole heart, how you give so much of yourself to others. And my love, I want to be the person who lifts you up when you're feeling low, the one who celebrates your victories, no matter how big or small. I want to be the one you lean on when the world feels heavy, the one who reminds you, every single day, how truly special you are.
+      </br>
+      </br>
+
+        When I think of the future, I see only you. I see mornings filled with your laughter, evenings wrapped in your warmth, and a lifetime of memories waiting to be made. I dream of all the places we’ll go, the experiences we’ll share, the life we will build together, hand in hand. No matter where we are or what we face, as long as I have you, I have everything.
+      </br>  
+      </br>
+
+        I love you more than words can ever express, more than the stars in the sky, more than all the poetry ever written. You are my heart, my soul, my greatest love story, and I promise to spend forever proving just how much you mean to me.
+      </br>  
+      </br>
+
+        Forever and always,
+      </br>
+      </br>
+
+        Mouhieddine ❤️
+      </p>
+    </div>
+    <div class="floating-hearts"></div>
+  </div>
+
+  <form id="messageForm" class="content-section">
+    <h2>Write Me a Sweet Message</h2>
+    <h2>
+      Whatever you write me will be sent to me via Email, so don't worry gorgeous, I'll read your cute message ❤️
+    </h2>
+    <textarea name="message" rows="6" cols="50" placeholder="Tell me how you feel..."></textarea><br><br>
+    <button type="submit" style="background-color: #ff3366; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer;">Send Message</button>
+  </form>
+
+<footer>
+  <div class="valentine-content">
+    <div class="heart">❤️</div>
+  </div>
+</footer>
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script>
+  // Initialize EmailJS with your user ID (this is given to you when you sign up)
+  emailjs.init("sRW6P1vVQ1egnFuLF");
+
+  // Handle the form submission
+  document.getElementById("messageForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Send the form data via EmailJS
+    emailjs.sendForm("service_magda", "template_20epwni", this)
+      .then(function (response) {
+        console.log("Success!", response.status, response.text);
+        alert("Your message has been sent! I'll read it as soon as I can ❤️");
+      }, function (error) {
+        console.log("Failed...", error);
+        alert("Oops! Something went wrong. Please try again later.");
+      });
+  });
+</script>
+
+</body>
+</html>

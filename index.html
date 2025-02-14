@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine’s Surprise</title>
+  <style>
+    /* Base Styles */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      background-color: #ff99cc;
+      color: white;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header {
+      font-size: 2.8em; /* Increased size */
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 2.5em; /* Increased size */
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    #countdown {
+      font-size: 2.2em; /* Made the countdown bigger */
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .button {
+      padding: 15px 30px;
+      background-color: #fff;
+      color: #ff3366;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+      to { box-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+    }
+
+    .button:hover {
+      background-color: #ff6699;
+      color: #fff;
+    }
+
+    .hearts-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none; /* Hearts start hidden */
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      color: #ff3366;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        font-size: 2.2em; /* Smaller header on mobile */
+      }
+
+      .message {
+        font-size: 2em; /* Adjust message font size */
+      }
+
+      #countdown {
+        font-size: 1.8em; /* Adjust countdown font size */
+      }
+
+      .button {
+        font-size: 1em; /* Smaller button text */
+        padding: 12px 24px;
+      }
+
+      .valentine-content img,
+      .valentine-content video {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .valentine-content {
+        padding: 0 20px; /* Add some padding for mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.8em; /* Even smaller on very small screens */
+      }
+
+      .message {
+        font-size: 1.6em; /* Smaller message font */
+      }
+
+      #countdown {
+        font-size: 1.4em; /* Smaller countdown font */
+      }
+
+      .button {
+        font-size: 0.9em; /* Even smaller button text */
+        padding: 10px 20px;
+      }
+
+      .valentine-content {
+        padding: 0 10px; /* Even more padding */
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="home-page">
+    <button class="button" id="toggle-page-button">See What’s Happening</button>
+  </div>
+
+  <div id="countdown-page" style="display: none;">
+    <header>Counting Down to Valentine's Day!</header>
+    <div id="countdown"></div>
+    <div id="countdown-message" class="message"></div>
+    <button class="button" id="waiting-button">Happy Valentine</button>
+    <div class="hearts-container" id="hearts-container"></div>
+    <button class="button" id="play-button">Wanna play a lil?</button>
+  </div>
+
+  <div id="valentine-page" style="display: none;">
+    <header>Happy Valentine’s Day!</header>
+    <p>You’re my forever Valentine ❤️</p>
+    <div class="valentine-content">
+      <img src="https://via.placeholder.com/300x200" alt="Your Picture">
+      <video controls>
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <footer>Made with love by [Your Name]</footer>
+  </div>
+
+  <script>
+    const valentineDate = new Date('February 14, 2025 00:00:00');
+    const togglePageButton = document.getElementById('toggle-page-button');
+    const countdownPage = document.getElementById('countdown-page');
+    const valentinePage = document.getElementById('valentine-page');
+    const countdownElement = document.getElementById('countdown');
+    const countdownMessageElement = document.getElementById('countdown-message');
+    const homePage = document.getElementById('home-page');
+    const waitingButton = document.getElementById('waiting-button');
+    const heartsContainer = document.getElementById('hearts-container');
+    const playButton = document.getElementById('play-button');
+    let heartCount = 0;
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeRemaining = valentineDate - now;
+      if (timeRemaining <= 0) {
+        countdownElement.innerHTML = "Happy Valentine’s Day!";
+        countdownMessageElement.innerHTML = "";
+        return;
+      }
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s until Valentine’s Day!`;
+    }
+
+    function createHeart() {
+      if (heartCount >= 50) return;
+      heartCount++;
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = Math.random() * 100 + 'vh';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+        heartCount--;
+      }, 4000);
+    }
+
+    togglePageButton.addEventListener('click', () => {
+      const now = new Date();
+      if (now < valentineDate) {
+        homePage.style.display = 'none';
+        countdownPage.style.display = 'block';
+        heartsContainer.style.display = 'block';
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        setInterval(createHeart, 500);
+      } else {
+        homePage.style.display = 'none';
+        valentinePage.style.display = 'block';
+        heartsContainer.style.display = 'block';
+        setInterval(createHeart, 500);
+      }
+    });
+
+    waitingButton.addEventListener('click', () => {
+      window.location.href = "valentine.html"; 
+    });
+
+    playButton.addEventListener('click', () => {
+      window.location.href = "games.html";
+    });
+  </script>
+
+</body>
+</html>

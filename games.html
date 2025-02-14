@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick a Game!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      background-color: #ff99cc;
+      color: white;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .game-item {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      width: 200px;
+      text-align: center;
+      color: #ff3366;
+      font-size: 1.5em;
+      font-weight: bold;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+      to { box-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+    }
+
+    .game-item:hover {
+      background-color: #ff6699;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .button {
+      padding: 15px 30px;
+      background-color: white;
+      color: #ff3366;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      animation: glow 1.5s infinite alternate;
+    }
+
+    .button:hover {
+      background-color: #ff6699;
+      color: white;
+    }
+
+    .hearts-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      color: #ff3366;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message">Let's play baby 💕</div>
+  <div class="game-list">
+    <div class="game-item" onclick="openGame('tic-tac-toe.html')">Tic-Tac-Toe</div>
+    <div class="game-item" onclick="openGame('snake.html')">Snake</div>
+    <div class="game-item" onclick="openGame('flappy-bird.html')">Flappy Bird</div>
+  </div>
+
+  <button class="button" onclick="goBack()">Back to Main</button>
+
+  <div class="hearts-container" id="hearts-container"></div>
+
+  <script>
+    function openGame(gameUrl) {
+      window.open(gameUrl, '_blank', 'width=600,height=600');
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = Math.random() * 100 + 'vh';
+      document.getElementById('hearts-container').appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+</body>
+</html>
